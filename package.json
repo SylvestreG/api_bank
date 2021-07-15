@@ -1,0 +1,38 @@
+{
+  "name": "api_bank",
+  "version": "1.0.0",
+  "description": "a bank api",
+  "main": "src/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "test/test.js",
+    "init_env": "./build_env.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SylvestreG/api_bank.git"
+  },
+  "keywords": [
+    "bank",
+    "api"
+  ],
+  "author": "Sylvestre Gallon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SylvestreG/api_bank/issues"
+  },
+  "homepage": "https://github.com/SylvestreG/api_bank#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "ts-command-line-args": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.3.2",
+    "typescript": "^4.3.5"
+  }
+}

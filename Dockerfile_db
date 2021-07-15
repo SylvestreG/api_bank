@@ -1,0 +1,4 @@
+FROM postgres
+ENV POSTGRES_PASSWORD syl
+ENV POSTGRES_DB bank
+COPY ./db/database_schema.sql /docker-entrypoint-initdb.d/
