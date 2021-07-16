@@ -16,3 +16,12 @@ docker build -t bank -f Dockerfile_db .
 echo -e "${GREEN} --> ${PURPLE}Launching DB docker container${NC}"
 docker run -d --name bank_db -p 5432:5432 bank
 
+echo -e "${GREEN} --> ${PURPLE}Building sources${NC}"
+tsc --build tsconfig.json
+sleep 3
+
+echo -e "${GREEN} --> ${PURPLE}Adding users into DB${NC}"
+node src/populate_db.js --jsonFile=data/user.json --tableName=users
+
+echo -e "${GREEN} --> ${PURPLE}Adding account into DB${NC}"
+node src/populate_db.js --jsonFile=data/account.json --tableName=account

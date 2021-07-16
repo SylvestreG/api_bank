@@ -8,9 +8,9 @@
 	},
 	"scripts": {
 		"test": "test/test.js",
-		"init_env": "./build_env.sh",
+		"init_env": "./scripts/build_env.sh",
 		"tsc": "tsc --build tsconfig.json",
-		"transaction" : "./scripts/launch_transaction.sh"
+		"transaction": "./scripts/launch_transaction.sh"
 	},
 	"repository": {
 		"type": "git",
