@@ -1,7 +1,7 @@
 import { parse } from "ts-command-line-args";
 import * as fs from "fs";
 import { dbListImpl, dbInterfaceImpl } from "./db";
-import { account, users } from "./db.interface";
+import { account, card, users } from "./db.interface";
 
 interface PopulateDbArgs {
   tableName: string;
@@ -44,6 +44,11 @@ async function buildRequest(tableName: string, json: string): Promise<void> {
     case "account":
       sqlquery = dbListImpl
         .buildUserListFromData<account>(tableName, json)
+        .buildInsertRequest();
+      break;
+    case "card":
+      sqlquery = dbListImpl
+        .buildUserListFromData<card>(tableName, json)
         .buildInsertRequest();
       break;
     default:

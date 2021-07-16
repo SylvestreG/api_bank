@@ -31,6 +31,18 @@ export class dbInterfaceImpl implements dbInterface {
     }
   }
 
+  async sendQuery(req: string): Promise<Array<any>> {
+    try {
+      const result = await this._client.query(req);
+
+      console.log(`succeed ${result.rowCount} row returned`);
+      return Array.from(result.rows);
+    } catch (e) {
+      console.error(e.message);
+    }
+    return [];
+  }
+
   async closeDb() {
     await this._client.end();
   }
@@ -108,6 +120,11 @@ export class dbListImpl<Type> implements dbList<Type> {
             "user_id" in node
           )
             ul.list.push(node);
+          else console.error(`bad object ${JSON.stringify(node)}`);
+          break;
+
+        case "card":
+          if ("id" in node && "account_id" in node) ul.list.push(node);
           else console.error(`bad object ${JSON.stringify(node)}`);
           break;
 

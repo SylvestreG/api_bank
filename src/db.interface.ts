@@ -11,6 +11,11 @@ export interface account {
   user_id: number;
 }
 
+export interface card {
+  id: string;
+  user_id: number;
+}
+
 export interface dbList<T> {
   list: Array<T>;
 
@@ -21,4 +26,5 @@ export interface dbInterface {
   connectToDb(): void;
 
   sendInsertRequest(req: string): void;
+  sendQuery(req: string): Promise<Array<string>>;
 }

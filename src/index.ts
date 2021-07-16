@@ -1,3 +1,5 @@
+import { TransactionHook } from "./transaction_hook";
+
 const express = require("express");
 const bodyParser = require("body-parser");
 
@@ -6,27 +8,33 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = 8080;
 
-app.post("/webhooks/transactions", (req: any, res: any) => {
+async function handleRequest(req: TransactionHook): Promise<void> {
+  try {
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+app.post("/webhooks/transactions", async (req: any, res: any) => {
   console.log(req.body);
-  const card_id = req.body.meta_info.card_id;
-  const marchant_id = req.body.meta_info.merchant.id;
-  const transaction_id = req.id;
-  const amount = req.amount;
-  const country_code = req.body.meta_info.country_code.id;
-  const category_code = req.body.meta_info.category_code.id;
 
-  //lookup for account id throught card id ?
+  let transaction = new TransactionHook(req.body);
+  try {
+    if (await transaction.findAccountId()) {
+      if (await transaction.checkIfMerchantRegistered()) {
+        //        transaction.insertCashback();
+      }
+      await transaction.insertTransactionCb();
+      //    await transaction.insertTransaction();
 
-  //lookup if it is a known marchant ?
+      res.send("ok");
+      return;
+    }
 
-  //insert cb transaction and keep id
-
-  //INSERT INTO cbtransaction (id, marchant_id, merchant_category_code, marchant_name, country_code) VALUES ('', '', '', '', '', '')
-
-  //lookup if marchant exist for
-
-  console.log(card_id);
-  res.send(`${card_id}`);
+    res.send("error");
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.listen(PORT, () => {

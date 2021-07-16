@@ -10,7 +10,8 @@
 		"test": "test/test.js",
 		"init_env": "./scripts/build_env.sh",
 		"tsc": "tsc --build tsconfig.json",
-		"transaction": "./scripts/launch_transaction.sh"
+		"transaction": "./scripts/launch_transaction.sh",
+		"serve": "node ./src/index.js"
 	},
 	"repository": {
 		"type": "git",

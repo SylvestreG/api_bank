@@ -30,15 +30,15 @@ CREATE TABLE IF NOT EXISTS account
     IBAN    varchar(34) NOT NULL,
     BIC     varchar(11) NOT NULL,
     balance money       NOT NULL,
-    user_id bigserial   NOT NULL,
+    user_id bigint   NOT NULL,
     UNIQUE (IBAN, BIC, user_id),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE TABLE IF NOT EXISTS card
 (
-    id         bigserial PRIMARY KEY,
-    account_id bigserial NOT NULL,
+    id         varchar(64) PRIMARY KEY,
+    account_id bigint NOT NULL,
 
     FOREIGN KEY (account_id) REFERENCES account (id)
 );
@@ -68,7 +68,7 @@ CREATE TABLE company
 CREATE TABLE IF NOT EXISTS cbMerchantId
 (
     cb_merchant_id VARCHAR(64) PRIMARY KEY,
-    company_id     bigserial NOT NULL,
+    company_id     bigint NOT NULL,
 
     FOREIGN KEY (company_id) REFERENCES company (id)
 );
@@ -80,18 +80,18 @@ CREATE TABLE IF NOT EXISTS cbTransaction
     merchant_category_code VARCHAR(64)  NOT NULL, -- not sure about the 64 ???
     merchant_name          VARCHAR(255) NOT NULL,
     country_code           VARCHAR(3)   NOT NULL,
-    cashback_id            bigserial UNIQUE,
+    cashback_id            bigint UNIQUE,
 
     FOREIGN KEY (cashback_id) REFERENCES cashBack (id)
 );
 
 CREATE TABLE IF NOT EXISTS transaction
 (
-    id         bigserial PRIMARY KEY,
+    id         varchar(64) PRIMARY KEY,
     type       transactionType NOT NULL,
-    account_id bigserial       NOT NULL,
-    sepa_id    bigserial UNIQUE,
-    cb_id      bigserial UNIQUE,
+    account_id bigint          NOT NULL,
+    sepa_id    bigint UNIQUE,
+    cb_id      bigint UNIQUE,
 
     FOREIGN KEY (account_id) REFERENCES account (id),
     FOREIGN KEY (sepa_id) REFERENCES sepaTransaction (id),
