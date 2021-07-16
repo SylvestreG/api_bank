@@ -1,14 +1,20 @@
-DO $$ BEGIN
-    CREATE TYPE transactionType AS ENUM ('SEPA', 'CB');
-EXCEPTION
-    WHEN duplicate_object THEN null;
-END $$;
+DO
+$$
+    BEGIN
+        CREATE TYPE transactionType AS ENUM ('SEPA', 'CB');
+    EXCEPTION
+        WHEN duplicate_object THEN null;
+    END
+$$;
 
-DO $$ BEGIN
-    CREATE TYPE cashbackStatus AS ENUM ('ONHOLD', 'DONE', 'CANCELLED');
-EXCEPTION
-    WHEN duplicate_object THEN null;
-END $$;
+DO
+$$
+    BEGIN
+        CREATE TYPE cashbackStatus AS ENUM ('ONHOLD', 'DONE', 'CANCELLED');
+    EXCEPTION
+        WHEN duplicate_object THEN null;
+    END
+$$;
 
 CREATE TABLE IF NOT EXISTS users
 (
@@ -23,11 +29,19 @@ CREATE TABLE IF NOT EXISTS account
     id      bigserial PRIMARY KEY,
     IBAN    varchar(34) NOT NULL,
     BIC     varchar(11) NOT NULL,
-    BALANCE money       NOT NULL,
+    balance money       NOT NULL,
     user_id bigserial   NOT NULL,
+    UNIQUE (IBAN, BIC, user_id),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
+CREATE TABLE IF NOT EXISTS card
+(
+    id         bigserial PRIMARY KEY,
+    account_id bigserial NOT NULL,
+
+    FOREIGN KEY (account_id) REFERENCES account (id)
+);
 
 CREATE TABLE IF NOT EXISTS sepaTransaction
 (
@@ -42,7 +56,7 @@ CREATE TABLE IF NOT EXISTS cashBack
     status cashbackStatus NOT NULL
 );
 
-CREATE TABLE merchant
+CREATE TABLE company
 (
     id              bigserial PRIMARY KEY,
     name            VARCHAR(255) UNIQUE NOT NULL,
@@ -54,19 +68,19 @@ CREATE TABLE merchant
 CREATE TABLE IF NOT EXISTS cbMerchantId
 (
     cb_merchant_id VARCHAR(64) PRIMARY KEY,
-    merchant_id bigserial NOT NULL,
+    company_id     bigserial NOT NULL,
 
-    FOREIGN KEY (merchant_id) REFERENCES merchant (id)
+    FOREIGN KEY (company_id) REFERENCES company (id)
 );
 
 CREATE TABLE IF NOT EXISTS cbTransaction
 (
-    id                   bigserial PRIMARY KEY,
-    merchant_id          VARCHAR(64)  NOT NULL, -- note sur about the 64 ???
-    merchantCategoryCode VARCHAR(64)  NOT NULL, -- not sure about the 64 ???
-    merchantName         VARCHAR(255) NOT NULL,
-    coutntryCode         VARCHAR(32)  NOT NULL, -- not sure about the 32 ???
-    cashback_id          bigserial UNIQUE,
+    id                     bigserial PRIMARY KEY,
+    merchant_id            VARCHAR(64)  NOT NULL, -- note sur about the 64 ???
+    merchant_category_code VARCHAR(64)  NOT NULL, -- not sure about the 64 ???
+    merchant_name          VARCHAR(255) NOT NULL,
+    country_code           VARCHAR(3)   NOT NULL,
+    cashback_id            bigserial UNIQUE,
 
     FOREIGN KEY (cashback_id) REFERENCES cashBack (id)
 );
@@ -75,7 +89,7 @@ CREATE TABLE IF NOT EXISTS transaction
 (
     id         bigserial PRIMARY KEY,
     type       transactionType NOT NULL,
-    account_id bigserial NOT NULL,
+    account_id bigserial       NOT NULL,
     sepa_id    bigserial UNIQUE,
     cb_id      bigserial UNIQUE,
 

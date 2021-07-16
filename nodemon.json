@@ -1,0 +1,6 @@
+{
+  "ext": "js,json,ts",
+  "watch": ["src/", "test/"],
+  "exec": "npm run tsc",
+  "restartable": "rs"
+}
