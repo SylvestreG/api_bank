@@ -1,38 +1,48 @@
 {
-  "name": "api_bank",
-  "version": "1.0.0",
-  "description": "a bank api",
-  "main": "src/index.js",
-  "directories": {
-    "doc": "docs"
-  },
-  "scripts": {
-    "test": "test/test.js",
-    "init_env": "./build_env.sh"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SylvestreG/api_bank.git"
-  },
-  "keywords": [
-    "bank",
-    "api"
-  ],
-  "author": "Sylvestre Gallon",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/SylvestreG/api_bank/issues"
-  },
-  "homepage": "https://github.com/SylvestreG/api_bank#readme",
-  "dependencies": {
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "ts-command-line-args": "^2.1.0"
-  },
-  "devDependencies": {
-    "@types/dotenv": "^8.2.0",
-    "@types/express": "^4.17.13",
-    "@types/node": "^16.3.2",
-    "typescript": "^4.3.5"
-  }
+	"name": "api_bank",
+	"version": "1.0.0",
+	"description": "a bank api",
+	"main": "node src/index.js",
+	"directories": {
+		"doc": "docs"
+	},
+	"scripts": {
+		"test": "test/test.js",
+		"init_env": "./build_env.sh",
+		"tsc": "tsc --build tsconfig.json",
+		"transaction" : "./scripts/launch_transaction.sh"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SylvestreG/api_bank.git"
+	},
+	"keywords": [
+		"bank",
+		"api"
+	],
+	"author": "Sylvestre Gallon",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/SylvestreG/api_bank/issues"
+	},
+	"homepage": "https://github.com/SylvestreG/api_bank#readme",
+	"dependencies": {
+		"@types/body-parser": "^1.19.1",
+		"@types/pg": "^8.6.1",
+		"body-parser": "^1.19.0",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"pg": "^8.6.0",
+		"prettier": "^2.3.2",
+		"ts-command-line-args": "^2.1.0",
+		"ts-postgres": "^1.1.3"
+	},
+	"devDependencies": {
+		"@types/dotenv": "^8.2.0",
+		"@types/express": "^4.17.13",
+		"@types/node": "^16.3.2",
+		"nodemon": "^2.0.12",
+		"ts-node": "^10.1.0",
+		"typescript": "^4.3.5"
+	}
 }
