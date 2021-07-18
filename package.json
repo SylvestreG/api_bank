@@ -11,6 +11,7 @@
 		"init_env": "./scripts/build_env.sh",
 		"tsc": "tsc --build tsconfig.json",
 		"transaction": "./scripts/launch_transaction.sh",
+		"list_transac": "./scripts/get_transactions_for_users.sh",
 		"serve": "node ./src/index.js"
 	},
 	"repository": {
@@ -33,6 +34,7 @@
 		"body-parser": "^1.19.0",
 		"dotenv": "^10.0.0",
 		"express": "^4.17.1",
+		"getenv": "^1.0.0",
 		"pg": "^8.6.0",
 		"prettier": "^2.3.2",
 		"ts-command-line-args": "^2.1.0",

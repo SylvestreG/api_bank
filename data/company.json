@@ -1,0 +1,17 @@
+[
+  {
+    "name": "netflix",
+    "description" : "online streaming platform",
+    "cashback_percent" : 50
+  },
+  {
+    "name": "google",
+    "description" : "serve the interet",
+    "cashback_percent" : 25
+  },
+  {
+    "name": "manomano",
+    "description" : "diy tools online shop",
+    "cashback_percent": 75
+  }
+]

@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS account
     IBAN    varchar(34) NOT NULL,
     BIC     varchar(11) NOT NULL,
     balance money       NOT NULL,
-    user_id bigint   NOT NULL,
+    user_id bigint      NOT NULL,
     UNIQUE (IBAN, BIC, user_id),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
@@ -58,11 +58,11 @@ CREATE TABLE IF NOT EXISTS cashBack
 
 CREATE TABLE company
 (
-    id              bigserial PRIMARY KEY,
-    name            VARCHAR(255) UNIQUE NOT NULL,
-    description     text                NOT NULL,
-    logo            bytea,
-    cashBackPercent decimal(5, 4)       NOT NULL
+    id               bigserial PRIMARY KEY,
+    name             VARCHAR(255) UNIQUE NOT NULL,
+    description      text                NOT NULL,
+    logo             bytea,
+    cashback_percent decimal             NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS cbMerchantId
@@ -89,7 +89,8 @@ CREATE TABLE IF NOT EXISTS transaction
 (
     id         varchar(64) PRIMARY KEY,
     type       transactionType NOT NULL,
-    account_id bigint          NOT NULL,
+    account_id bigint,
+    amount     money NOT NULL,
     sepa_id    bigint UNIQUE,
     cb_id      bigint UNIQUE,
 

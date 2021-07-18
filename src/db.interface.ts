@@ -16,6 +16,17 @@ export interface card {
   user_id: number;
 }
 
+export interface company {
+  name: string;
+  description: string;
+  cashback_percent: number;
+}
+
+export interface cbmerchantid {
+  cb_merchant_id: string;
+  company_id: number;
+}
+
 export interface dbList<T> {
   list: Array<T>;
 
@@ -25,6 +36,6 @@ export interface dbList<T> {
 export interface dbInterface {
   connectToDb(): void;
 
-  sendInsertRequest(req: string): void;
+  sendInsertRequest(req: string): Promise<Array<string>>;
   sendQuery(req: string): Promise<Array<string>>;
 }

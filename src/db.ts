@@ -1,10 +1,13 @@
 import { dbInterface, users, dbList, account } from "./db.interface";
 import { Client } from "pg";
 
+const getenv = require("getenv");
+
 export class dbInterfaceImpl implements dbInterface {
   private _client: Client;
 
   constructor() {
+    getenv.disableErrors();
     this._client = new Client({
       user: "postgres",
       database: "bank",
@@ -21,22 +24,37 @@ export class dbInterfaceImpl implements dbInterface {
     }
   }
 
-  async sendInsertRequest(req: string): Promise<void> {
+  async sendInsertRequest(req: string): Promise<Array<any>> {
     try {
+      if (getenv("SQL_DEBUG") == "1") console.log(`trying request ${req}`);
+
       const result = await this._client.query(req);
 
       console.log(`succeed ${result.rowCount} inserted`);
+      let res = Array.from(result.rows);
+
+      if (getenv("SQL_DEBUG") == "1")
+        console.log(`return ${JSON.stringify(res)}`);
+
+      return res;
     } catch (e) {
       console.error(e.message);
     }
+    return [];
   }
 
   async sendQuery(req: string): Promise<Array<any>> {
     try {
+      if (getenv("SQL_DEBUG") == "1") console.log(`trying request ${req}`);
       const result = await this._client.query(req);
 
       console.log(`succeed ${result.rowCount} row returned`);
-      return Array.from(result.rows);
+      let res = Array.from(result.rows);
+
+      if (getenv("SQL_DEBUG") == "1")
+        console.log(`return ${JSON.stringify(res)}`);
+
+      return res;
     } catch (e) {
       console.error(e.message);
     }
@@ -88,7 +106,6 @@ export class dbListImpl<Type> implements dbList<Type> {
 
     output += rows.join(",");
     output += ";";
-    console.log(`trying ${output}`);
     return output;
   }
 
@@ -125,6 +142,22 @@ export class dbListImpl<Type> implements dbList<Type> {
 
         case "card":
           if ("id" in node && "account_id" in node) ul.list.push(node);
+          else console.error(`bad object ${JSON.stringify(node)}`);
+          break;
+
+        case "cbmerchantid":
+          if ("cb_merchant_id" in node && "company_id" in node)
+            ul.list.push(node);
+          else console.error(`bad object ${JSON.stringify(node)}`);
+          break;
+
+        case "company":
+          if (
+            "name" in node &&
+            "description" in node &&
+            "cashback_percent" in node
+          )
+            ul.list.push(node);
           else console.error(`bad object ${JSON.stringify(node)}`);
           break;
 

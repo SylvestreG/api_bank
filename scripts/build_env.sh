@@ -28,3 +28,9 @@ node src/populate_db.js --jsonFile=data/account.json --tableName=account
 
 echo -e "${GREEN} --> ${PURPLE}Adding card into DB${NC}"
 node src/populate_db.js --jsonFile=data/cb.json --tableName=card
+
+echo -e "${GREEN} --> ${PURPLE}Adding company into DB${NC}"
+node src/populate_db.js --jsonFile=data/company.json --tableName=company
+
+echo -e "${GREEN} --> ${PURPLE}Adding cbmerchantid into DB${NC}"
+node src/populate_db.js --jsonFile=data/cbmerchantid.json --tableName=cbmerchantid

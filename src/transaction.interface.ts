@@ -31,3 +31,24 @@ export interface accountIdQuery {
 export interface companyIdQuery {
   company_id: string;
 }
+
+export interface cashbackIdQuery {
+  id: string;
+  status: string;
+}
+
+export interface cbtransaction {
+  id: string;
+}
+
+export interface transactionJoinElems {
+  amount: number;
+  iban: string;
+  bic: string;
+  balance: number;
+  id: string;
+  sepa_id: number;
+  cb_id: number;
+  type: string;
+  cash_back: number;
+}
