@@ -49,6 +49,7 @@ export interface transactionJoinElems {
   id: string;
   sepa_id: number;
   cb_id: number;
+  account_id: number;
   type: string;
   cash_back: number;
 }

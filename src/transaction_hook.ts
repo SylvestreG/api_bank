@@ -51,6 +51,7 @@ export class TransactionHook {
       this._categoryCode = body.meta_info.merchant.category_code;
     } else {
       this._transactionId = body.id;
+      this._accountId = BigInt(body.account_id);
       this._cbTransactionId = BigInt(body.cb_id);
     }
 
@@ -163,9 +164,8 @@ export class TransactionHook {
   }
 
   async getCashBackAmountForTransaction(): Promise<any> {
-    if (await this.findAccountId()) {
-      let balance: Array<any> = await this._db.sendQuery(
-        `SELECT balance, amount, cashback_percent
+    let balance: Array<any> = await this._db.sendQuery(
+      `SELECT balance, amount, cashback_percent
                  FROM account,
                       transaction,
                       cbtransaction,
@@ -176,18 +176,16 @@ export class TransactionHook {
                    AND cbmerchantid.cb_merchant_id = cbtransaction.merchant_id
                    AND company.id = cbmerchantid.company_id
                    AND transaction.id = '${this._transactionId}';`
-      );
+    );
 
-      if (balance.length != 1) return null;
+    if (balance.length != 1) return null;
 
-      let cashBack =
-        (parseInt(balance[0].amount) *
-          (100 - parseInt(balance[0].cashback_percent))) /
-        100;
-      let newBalance = parseInt(balance[0].balance) - cashBack;
-      return { newBalance: newBalance, cashBack: cashBack };
-    }
-    return null;
+    let cashBack =
+      (parseInt(balance[0].amount) *
+        (100 - parseInt(balance[0].cashback_percent))) /
+      100;
+    let newBalance = parseInt(balance[0].balance) - cashBack;
+    return { newBalance: newBalance, cashBack: cashBack };
   }
 
   async validateTransaction(): Promise<void> {

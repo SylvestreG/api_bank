@@ -27,6 +27,7 @@ app.get("/api/user/:id/transactions", async (req: any, res: any) => {
                                                                             t.id,
                                                                             t.sepa_id,
                                                                             t.cb_id,
+                                                                            t.account_id,
                                                                             type
                                                                      FROM users
                                                                               JOIN account a on users.id = a.user_id
@@ -36,11 +37,11 @@ app.get("/api/user/:id/transactions", async (req: any, res: any) => {
 
     if (ret.length == 0) res.send(`no transactions for user: ${user_id}`);
     else {
-      for (const t of ret) {
+      await ret.map(async (t) => {
         let transaction = new TransactionHook(t, db);
         let cash_back = await transaction.getCashBackAmountForTransaction();
-        t.cash_back = cash_back.cash_back;
-      }
+        console.log(`cashback ${cash_back.cashBack}`);
+      });
 
       res.send(JSON.stringify(ret));
     }
