@@ -173,16 +173,18 @@ export class TransactionHook {
                       company
                  WHERE account.id = transaction.account_id
                    AND cbtransaction.id = transaction.cb_id
-                   AND cbmerchantid.cb_merchant_id = cbtransaction.id
+                   AND cbmerchantid.cb_merchant_id = cbtransaction.merchant_id
                    AND company.id = cbmerchantid.company_id
-                   AND transaction.id = ${this._transactionId};`
+                   AND transaction.id = '${this._transactionId}';`
       );
 
       if (balance.length != 1) return null;
 
       let cashBack =
-        (balance[0].amount * (100 - balance[0].cashback_percent)) / 100;
-      let newBalance = balance[0].balance - cashBack;
+        (parseInt(balance[0].amount) *
+          (100 - parseInt(balance[0].cashback_percent))) /
+        100;
+      let newBalance = parseInt(balance[0].balance) - cashBack;
       return { newBalance: newBalance, cashBack: cashBack };
     }
     return null;
@@ -197,7 +199,7 @@ export class TransactionHook {
                              FROM transaction,
                                   cbtransaction
                              WHERE transaction.cb_id = cbtransaction.id
-                               AND transaction.id = ${this._transactionId});`
+                               AND transaction.id = '${this._transactionId}');`
       );
       console.log("transaction validated");
 

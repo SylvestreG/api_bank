@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS account
     id      bigserial PRIMARY KEY,
     IBAN    varchar(34) NOT NULL,
     BIC     varchar(11) NOT NULL,
-    balance money       NOT NULL,
+    balance bigint      NOT NULL,
     user_id bigint      NOT NULL,
     UNIQUE (IBAN, BIC, user_id),
     FOREIGN KEY (user_id) REFERENCES users (id)
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS transaction
     id         varchar(64) PRIMARY KEY,
     type       transactionType NOT NULL,
     account_id bigint,
-    amount     money NOT NULL,
+    amount     bigint          NOT NULL,
     sepa_id    bigint UNIQUE,
     cb_id      bigint UNIQUE,
 
