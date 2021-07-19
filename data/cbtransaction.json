@@ -1,0 +1,146 @@
+[
+  {
+    "merchant_id": "1022",
+    "merchant_category_code": "22",
+    "merchant_name": "carrefour",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1001",
+    "merchant_category_code": "1",
+    "merchant_name": "nike",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1001",
+    "merchant_category_code": "3",
+    "merchant_name": "nike",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1002",
+    "merchant_category_code": "1",
+    "merchant_name": "addidas",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1002",
+    "merchant_category_code": "1",
+    "merchant_name": "addidas",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1003",
+    "merchant_category_code": "1",
+    "merchant_name": "amazon",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1003",
+    "merchant_category_code": "1",
+    "merchant_name": "amazon",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1004",
+    "merchant_category_code": "1",
+    "merchant_name": "porsche",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1004",
+    "merchant_category_code": "1",
+    "merchant_name": "porsche",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1005",
+    "merchant_category_code": "1",
+    "merchant_name": "ferrari",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1005",
+    "merchant_category_code": "1",
+    "merchant_name": "ferrari",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1006",
+    "merchant_category_code": "1",
+    "merchant_name": "caterham",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1006",
+    "merchant_category_code": "1",
+    "merchant_name": "caterham",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1007",
+    "merchant_category_code": "1",
+    "merchant_name": "maserati",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1042",
+    "merchant_category_code": "1",
+    "merchant_name": "meserati",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1008",
+    "merchant_category_code": "1",
+    "merchant_name": "lotus",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1008",
+    "merchant_category_code": "1",
+    "merchant_name": "lotus",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1009",
+    "merchant_category_code": "1",
+    "merchant_name": "tvr",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1009",
+    "merchant_category_code": "1",
+    "merchant_name": "tvr",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1010",
+    "merchant_category_code": "1",
+    "merchant_name": "michelin",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1010",
+    "merchant_category_code": "1",
+    "merchant_name": "michelin",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1011",
+    "merchant_category_code": "1",
+    "merchant_name": "lambo",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1011",
+    "merchant_category_code": "1",
+    "merchant_name": "lambo",
+    "country_code": "FR"
+  },
+  {
+    "merchant_id": "1011",
+    "merchant_category_code": "1",
+    "merchant_name": "lambo",
+    "country_code": "FR"
+  }
+]

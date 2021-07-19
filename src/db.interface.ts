@@ -27,6 +27,21 @@ export interface cbmerchantid {
   company_id: number;
 }
 
+export interface cbtransaction {
+  merchant_id: string;
+  merchant_category_code: string;
+  merchant_name: string;
+  country_code: string;
+}
+
+export interface transaction {
+  type: string;
+  account_id: number;
+  amount: number;
+  date: string;
+  cb_id: number;
+}
+
 export interface dbList<T> {
   list: Array<T>;
 

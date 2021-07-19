@@ -68,7 +68,7 @@ CREATE TABLE company
 CREATE TABLE IF NOT EXISTS cbMerchantId
 (
     cb_merchant_id VARCHAR(64) PRIMARY KEY,
-    company_id     bigint NOT NULL,
+    company_id     bigint,
 
     FOREIGN KEY (company_id) REFERENCES company (id)
 );

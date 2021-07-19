@@ -1,0 +1,195 @@
+[
+  {
+    "id" : "1",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 25,
+    "date": "01-01-2019",
+    "cb_id": 1
+  },
+  {
+    "id" : "2",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 43,
+    "date": "01-02-2019",
+    "cb_id": 2
+  },
+  {
+    "id" : "3",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 250,
+    "date": "01-03-2019",
+    "cb_id": 3
+  },
+  {
+    "id" : "4",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 225,
+    "date": "01-04-2019",
+    "cb_id": 4
+  },
+  {
+    "id" : "5",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 98,
+    "date": "01-05-2019",
+    "cb_id": 5
+  },
+  {
+    "id" : "6",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 77,
+    "date": "01-06-2019",
+    "cb_id": 6
+  },
+  {
+    "id" : "7",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 54,
+    "date": "01-07-2019",
+    "cb_id": 7
+  },
+  {
+    "id" : "8",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 32323,
+    "date": "01-08-2019",
+    "cb_id": 8
+  },
+  {
+    "id" : "9",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 593,
+    "date": "01-09-2019",
+    "cb_id": 9
+  },
+  {
+    "id" : "10",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 432,
+    "date": "01-10-2019",
+    "cb_id": 10
+  },
+  {
+    "id" : "11",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 5993,
+    "date": "01-11-2019",
+    "cb_id": 11
+  },
+  {
+    "id" : "12",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 3333,
+    "date": "01-12-2019",
+    "cb_id": 12
+  },
+
+  {
+    "id" : "13",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 2222,
+    "date": "01-01-2020",
+    "cb_id": 13
+  },
+  {
+    "id" : "14",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 4993,
+    "date": "01-02-2020",
+    "cb_id": 14
+  },
+  {
+    "id" : "15",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 221,
+    "date": "01-03-2020",
+    "cb_id": 15
+  },
+  {
+    "id" : "16",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 25,
+    "date": "01-04-2020",
+    "cb_id": 16
+  },
+  {
+    "id" : "17",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 444,
+    "date": "01-05-2020",
+    "cb_id": 17
+  },
+  {
+    "id" : "18",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 333,
+    "date": "01-06-2020",
+    "cb_id": 18
+  },
+  {
+    "id" : "19",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 555,
+    "date": "01-07-2020",
+    "cb_id": 19
+  },
+  {
+    "id" : "20",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 884,
+    "date": "01-08-2020",
+    "cb_id": 20
+  },
+  {
+    "id" : "21",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 39929,
+    "date": "01-09-2020",
+    "cb_id": 21
+  },
+  {
+    "id" : "22",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 3333,
+    "date": "01-10-2020",
+    "cb_id": 22
+  },
+  {
+    "id" : "23",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 2122,
+    "date": "01-11-2020",
+    "cb_id": 23
+  },
+  {
+    "id" : "24",
+    "type": "CB",
+    "account_id": 2,
+    "amount": 4543,
+    "date": "01-12-2020",
+    "cb_id": 24
+  }
+]

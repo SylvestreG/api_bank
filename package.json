@@ -13,7 +13,8 @@
 		"list_transac": "./scripts/get_transactions_for_users.sh",
 		"cashback": "./scripts/merchant_cashback.sh",
 		"serve": "node ./src/index.js",
-		"two_clients": "./scripts/two_clients.sh"
+		"two_clients": "./scripts/two_clients.sh",
+		"top_unknow": "./scripts/top_unknown.sh"
 	},
 	"repository": {
 		"type": "git",

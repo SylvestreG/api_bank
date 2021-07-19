@@ -146,7 +146,17 @@ export class dbListImpl<Type> implements dbList<Type> {
           break;
 
         case "cbmerchantid":
-          if ("cb_merchant_id" in node && "company_id" in node)
+          if ("cb_merchant_id" in node) ul.list.push(node);
+          else console.error(`bad object ${JSON.stringify(node)}`);
+          break;
+
+        case "cbtransaction":
+          if (
+            "merchant_id" in node &&
+            "merchant_category_code" in node &&
+            "merchant_name" in node &&
+            "country_code" in node
+          )
             ul.list.push(node);
           else console.error(`bad object ${JSON.stringify(node)}`);
           break;
@@ -156,6 +166,19 @@ export class dbListImpl<Type> implements dbList<Type> {
             "name" in node &&
             "description" in node &&
             "cashback_percent" in node
+          )
+            ul.list.push(node);
+          else console.error(`bad object ${JSON.stringify(node)}`);
+          break;
+
+        case "transaction":
+          if (
+            "id" in node &&
+            "type" in node &&
+            "account_id" in node &&
+            "amount" in node &&
+            "date" in node &&
+            "cb_id" in node
           )
             ul.list.push(node);
           else console.error(`bad object ${JSON.stringify(node)}`);

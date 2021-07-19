@@ -34,3 +34,12 @@ node src/populate_db.js --jsonFile=data/company.json --tableName=company
 
 echo -e "${GREEN} --> ${PURPLE}Adding cbmerchantid into DB${NC}"
 node src/populate_db.js --jsonFile=data/cbmerchantid.json --tableName=cbmerchantid
+
+echo -e "${GREEN} --> ${PURPLE}Adding cbmerchantid2 into DB${NC}"
+node src/populate_db.js --jsonFile=data/cbmerchantid2.json --tableName=cbmerchantid
+
+echo -e "${GREEN} --> ${PURPLE}Adding cbtransaction into DB${NC}"
+node src/populate_db.js --jsonFile=data/cbtransaction.json --tableName=cbtransaction
+
+echo -e "${GREEN} --> ${PURPLE}Adding transaction into DB${NC}"
+node src/populate_db.js --jsonFile=data/transaction.json --tableName=transaction

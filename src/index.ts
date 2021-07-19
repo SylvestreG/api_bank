@@ -63,9 +63,24 @@ app.get(
   }
 );
 
-app.get("api/stats/merchant/topunknown", async (req: any, res: any) => {
+app.get("/api/stats/merchant/topunknown", async (req: any, res: any) => {
   let db = new dbInterfaceImpl();
   await db.connectToDb();
+
+  let ret: Array<any> =
+    await db.sendQuery(` select merchant_name from transaction t
+    join cbtransaction cb on cb.id = t.cb_id
+    join cbmerchantid mid on cb.merchant_id = mid.cb_merchant_id
+    WHERE mid.company_id IS NULL
+    GROUP BY (merchant_name)
+    ORDER BY count(cb.id) DESC
+    LIMIT 10;`);
+
+  if (ret.length == 0) {
+    res.send("no merchant with unknow company");
+    return;
+  }
+  res.send(JSON.stringify(ret));
 });
 
 app.get("/api/user/:id/transactions", async (req: any, res: any) => {
