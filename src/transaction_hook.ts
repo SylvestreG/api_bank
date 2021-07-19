@@ -188,6 +188,23 @@ export class TransactionHook {
     return { newBalance: newBalance, cashBack: cashBack };
   }
 
+  async cancelCashback(): Promise<void> {
+    try {
+      await this._db.sendInsertRequest(
+        `UPDATE cashback
+                 SET status = 'CANCELLED'
+                 WHERE id = (SELECT cashback_id
+                             FROM transaction,
+                                  cbtransaction
+                             WHERE transaction.cb_id = cbtransaction.id
+                               AND transaction.id = '${this._transactionId}');`
+      );
+      console.log("transaction cancelled");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async validateTransaction(): Promise<void> {
     try {
       await this._db.sendInsertRequest(

@@ -1,12 +1,6 @@
 import { TransactionHook } from "./transaction_hook";
 import { dbInterfaceImpl } from "./db";
-import {
-  accountIdQuery,
-  cashbackIdQuery,
-  transactionJoinElems,
-} from "./transaction.interface";
-import { user } from "ts-postgres/dist/src/defaults";
-import { isNumber } from "util";
+import { transactionJoinElems } from "./transaction.interface";
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -15,6 +9,34 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = 8080;
+
+interface cashByMerchant {
+  marchantName: string;
+  totalCash: number;
+}
+
+app.get("/api/stats/cashback/merchant", async (req: any, res: any) => {
+  let db = new dbInterfaceImpl();
+  await db.connectToDb();
+
+  let ret: Array<any> = await db.sendQuery(`
+        SELECT name, SUM(amount * cashback_percent / 100) AS cb_value
+        FROM company
+                 JOIN cbmerchantid c ON company.id = c.company_id
+                 JOIN cbtransaction t ON t.merchant_id = c.cb_merchant_id
+                 JOIN transaction ON transaction.cb_id = t.id
+        GROUP BY name;`);
+
+  if (ret.length == 0) {
+    res.send("no cashback for any merchant");
+  }
+  res.send(JSON.stringify(ret));
+});
+
+app.get("api/stats/merchant/topunknown", async (req: any, res: any) => {
+  let db = new dbInterfaceImpl();
+  await db.connectToDb();
+});
 
 app.get("/api/user/:id/transactions", async (req: any, res: any) => {
   try {
@@ -86,7 +108,7 @@ app.post("/webhooks/transactions", async (req: any, res: any) => {
       console.log(err);
     }
   } else if (transaction.status == "CANCELLED") {
-    //todo delete cashback
+    await transaction.cancelCashback();
   } else if (transaction.status == "DONE") {
     await transaction.validateTransaction();
   }
