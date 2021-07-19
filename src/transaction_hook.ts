@@ -150,13 +150,21 @@ export class TransactionHook {
     try {
       if (this._accountId)
         await this._db.sendInsertRequest(
-          `INSERT INTO transaction (id, type, account_id, amount, cb_id)
-                     VALUES ('${this._transactionId}', 'CB', '${this._accountId}', '${this._amountCents}', '${this._cbTransactionId}');`
+          `INSERT INTO transaction (id, type, account_id, amount, date, cb_id)
+                     VALUES ('${this._transactionId}', 'CB', '${
+            this._accountId
+          }', '${this._amountCents}', to_timestamp(${Date.now()} / 1000.0), '${
+            this._cbTransactionId
+          }');`
         );
       else
         await this._db.sendInsertRequest(
-          `INSERT INTO transaction (id, type, amount, cb_id)
-                     VALUES ('${this._transactionId}', 'CB', '${this._amountCents}', '${this._cbTransactionId}');`
+          `INSERT INTO transaction (id, type, amount, date, cb_id)
+                     VALUES ('${this._transactionId}', 'CB', '${
+            this._amountCents
+          }', to_timestamp(${Date.now()} / 1000.0), '${
+            this._cbTransactionId
+          }');`
         );
     } catch (error) {
       console.error(error);
@@ -166,16 +174,16 @@ export class TransactionHook {
   async getCashBackAmountForTransaction(): Promise<any> {
     let balance: Array<any> = await this._db.sendQuery(
       `SELECT balance, amount, cashback_percent
-                 FROM account,
-                      transaction,
-                      cbtransaction,
-                      cbmerchantid,
-                      company
-                 WHERE account.id = transaction.account_id
-                   AND cbtransaction.id = transaction.cb_id
-                   AND cbmerchantid.cb_merchant_id = cbtransaction.merchant_id
-                   AND company.id = cbmerchantid.company_id
-                   AND transaction.id = '${this._transactionId}';`
+             FROM account,
+                  transaction,
+                  cbtransaction,
+                  cbmerchantid,
+                  company
+             WHERE account.id = transaction.account_id
+               AND cbtransaction.id = transaction.cb_id
+               AND cbmerchantid.cb_merchant_id = cbtransaction.merchant_id
+               AND company.id = cbmerchantid.company_id
+               AND transaction.id = '${this._transactionId}';`
     );
 
     if (balance.length != 1) return null;

@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS transaction
     type       transactionType NOT NULL,
     account_id bigint,
     amount     bigint          NOT NULL,
+    date       date            NOT NULL,
     sepa_id    bigint UNIQUE,
     cb_id      bigint UNIQUE,
 

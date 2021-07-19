@@ -15,7 +15,7 @@ interface cashByMerchant {
   totalCash: number;
 }
 
-app.get("/api/stats/cashback/merchant", async (req: any, res: any) => {
+app.get("/api/stats/merchant/cashback", async (req: any, res: any) => {
   let db = new dbInterfaceImpl();
   await db.connectToDb();
 
@@ -32,6 +32,36 @@ app.get("/api/stats/cashback/merchant", async (req: any, res: any) => {
   }
   res.send(JSON.stringify(ret));
 });
+
+app.get(
+  "/api/stats/marchant/two_client/:from/:to",
+  async (req: any, res: any) => {
+    let db = new dbInterfaceImpl();
+    await db.connectToDb();
+
+    let from: string = req.params.from;
+    let to: string = req.params.to;
+    console.log(from);
+    console.log(to);
+
+    let ret: Array<any> = await db.sendQuery(`SELECT corp.name FROM users u
+                                                                      JOIN account a ON u.id = a.user_id
+                                                                      JOIN transaction t on t.account_id = a.id
+                                                                      JOIN cbtransaction c on t.cb_id = c.id
+                                                                      JOIN cbmerchantid cm on cm.cb_merchant_id = c.merchant_id
+                                                                      JOIN company corp on cm.company_id = corp.id
+                                              WHERE t.date BETWEEN '${from}' AND '${to}'
+                                              GROUP BY corp.name
+                                              HAVING COUNT(DISTINCT u.name) > 1;
+    `);
+
+    if (ret.length == 0) {
+      res.send("no merchant found for this timeline");
+      return;
+    }
+    res.send(JSON.stringify(ret));
+  }
+);
 
 app.get("api/stats/merchant/topunknown", async (req: any, res: any) => {
   let db = new dbInterfaceImpl();
@@ -66,8 +96,10 @@ app.get("/api/user/:id/transactions", async (req: any, res: any) => {
                                                                    WHERE users.id = ${user_id}
         ;`);
 
-    if (ret.length == 0) res.send(`no transactions for user: ${user_id}`);
-    else {
+    if (ret.length == 0) {
+      res.send(`no transactions for user: ${user_id}`);
+      return;
+    } else {
       await ret.map(async (t) => {
         let transaction = new TransactionHook(t, db);
         let cash_back = await transaction.getCashBackAmountForTransaction();
