@@ -41,6 +41,11 @@ app.get(
 
     let from: string = req.params.from;
     let to: string = req.params.to;
+
+    if (isNaN(Date.parse(from)) || isNaN(Date.parse(to))) {
+      res.send("bad format for date");
+      return;
+    }
     console.log(from);
     console.log(to);
 
