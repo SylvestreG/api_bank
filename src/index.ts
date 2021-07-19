@@ -115,13 +115,16 @@ app.get("/api/user/:id/transactions", async (req: any, res: any) => {
       res.send(`no transactions for user: ${user_id}`);
       return;
     } else {
-      await ret.map(async (t) => {
+      let newRet: Array<any> = [];
+      for (const t of ret) {
         let transaction = new TransactionHook(t, db);
         let cash_back = await transaction.getCashBackAmountForTransaction();
-        console.log(`cashback ${cash_back.cashBack}`);
-      });
+        if (cash_back)
+          newRet.push({ transaction: t, cashback: cash_back.cashBack });
+        else newRet.push({ transaction: t, cashback: null });
+      }
 
-      res.send(JSON.stringify(ret));
+      res.send(JSON.stringify(newRet));
     }
   } catch (error) {
     res.send(error.message);
