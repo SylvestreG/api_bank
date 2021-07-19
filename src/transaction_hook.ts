@@ -7,6 +7,7 @@ import {
   transactionJoinElems,
 } from "./transaction.interface";
 import { dbInterfaceImpl } from "./db";
+import { stat } from "fs";
 
 function isTransactionInterface(
   elem: TransactionInterface | transactionJoinElems
@@ -213,8 +214,21 @@ export class TransactionHook {
     }
   }
 
-  async validateTransaction(): Promise<void> {
+  async validateTransaction(): Promise<string> {
     try {
+      let status: Array<any> = await this._db.sendQuery(`SELECT status
+                                                               FROM cashback,
+                                                                    transaction,
+                                                                    cbtransaction
+                                                               WHERE cashback.id = cbtransaction.cashback_id
+                                                                 AND transaction.cb_id = cbtransaction.id
+                                                                 AND transaction.id = '${this._transactionId}';`);
+
+      if (status.length != 1) return "unkown transaction...";
+
+      if (status[0].status != "ONHOLD")
+        return "you can only validate ONHOLD transactions";
+
       await this._db.sendInsertRequest(
         `UPDATE cashback
                  SET status = 'DONE'
@@ -228,8 +242,7 @@ export class TransactionHook {
 
       let newBalance: any = await this.getCashBackAmountForTransaction();
       if (newBalance == null) {
-        console.log("no cashback for transaction");
-        return;
+        return "transaction done without cashback";
       }
       console.log(
         `get cashback here is the new balance ${newBalance.cashBack}`
@@ -241,7 +254,9 @@ export class TransactionHook {
                  WHERE id = ${this._accountId};`
       );
     } catch (error) {
-      console.error(error);
+      return error.message;
     }
+
+    return "transaction done";
   }
 }

@@ -164,8 +164,13 @@ app.post("/webhooks/transactions", async (req: any, res: any) => {
     }
   } else if (transaction.status == "CANCELLED") {
     await transaction.cancelCashback();
+    res.send("transaction cancelled");
   } else if (transaction.status == "DONE") {
-    await transaction.validateTransaction();
+    if (await transaction.findAccountId()) {
+      res.send(await transaction.validateTransaction());
+    }
+  } else {
+    res.send("unknown command");
   }
 });
 
