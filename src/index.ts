@@ -5,6 +5,8 @@ import {
   cashbackIdQuery,
   transactionJoinElems,
 } from "./transaction.interface";
+import { user } from "ts-postgres/dist/src/defaults";
+import { isNumber } from "util";
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -18,21 +20,28 @@ app.get("/api/user/:id/transactions", async (req: any, res: any) => {
   try {
     let db = new dbInterfaceImpl();
     await db.connectToDb();
-    let user_id: number = req.params.id;
+
+    let user_id: number = parseInt(req.params.id);
+
+    console.log(user_id);
+    if (isNaN(user_id)) {
+      res.send("invalid user id");
+      return;
+    }
 
     let ret: Array<transactionJoinElems> = await db.sendQuery(`select amount,
-                                                                            iban,
-                                                                            bic,
-                                                                            balance,
-                                                                            t.id,
-                                                                            t.sepa_id,
-                                                                            t.cb_id,
-                                                                            t.account_id,
-                                                                            type
-                                                                     FROM users
-                                                                              JOIN account a on users.id = a.user_id
-                                                                              JOIN transaction t on a.id = t.account_id
-                                                                     WHERE users.id = ${user_id}
+                                                                          iban,
+                                                                          bic,
+                                                                          balance,
+                                                                          t.id,
+                                                                          t.sepa_id,
+                                                                          t.cb_id,
+                                                                          t.account_id,
+                                                                          type
+                                                                   FROM users
+                                                                            JOIN account a on users.id = a.user_id
+                                                                            JOIN transaction t on a.id = t.account_id
+                                                                   WHERE users.id = ${user_id}
         ;`);
 
     if (ret.length == 0) res.send(`no transactions for user: ${user_id}`);
